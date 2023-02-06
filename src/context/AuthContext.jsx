@@ -1,45 +1,38 @@
-import React from "react"
-import { createContext, useContext, useEffect, useState } from "react"
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-} from "firebase/auth"
+import { createContext, useReducer, useEffect } from "react"
+import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../db/firebase"
 
-const UserContext = createContext()
+export const AuthContext = createContext()
+
+export const authReducer = (state, action) => {
+    switch (action.type) {
+        case "LOGIN":
+            return { ...state, user: action.payload }
+        case "LOGOUT":
+            return { ...state, user: null }
+        case "AUTH_IS_READY":
+            return { user: action.payload, authIsReady: true }
+        default:
+            return state
+    }
+}
 
 export const AuthContextProvider = ({ children }) => {
-    const [user, setUser] = useState({})
-
-    const createUser = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
-    const signIn = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
-    }
-    const logout = () => {
-        return signOut(auth)
-    }
+    const [state, dispatch] = useReducer(authReducer, {
+        user: null,
+        authIsReady: false,
+    })
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser)
-            setUser(currentUser)
+        const unsub = onAuthStateChanged(auth, (user) => {
+            dispatch({ type: "AUTH_IS_READY", payload: user })
+            unsub()
         })
-        return () => {
-            unsubscribe()
-        }
     }, [])
 
     return (
-        <UserContext.Provider value={{ createUser, user, logout, signIn }}>
+        <AuthContext.Provider value={{ ...state, dispatch }}>
             {children}
-        </UserContext.Provider>
+        </AuthContext.Provider>
     )
-}
-
-export const UserAuth = () => {
-    return useContext(UserContext)
 }

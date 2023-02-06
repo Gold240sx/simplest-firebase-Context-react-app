@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { UserAuth } from "../context/AuthContext"
+import { useLogin } from "../hooks/useSignIn.js"
 
 const signIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
+    const { error, isPending, login } = useLogin()
     const navigate = useNavigate()
-    const { signIn } = UserAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setError("")
         try {
-            await signIn(email, password)
+            await login(email, password)
             navigate("/dashboard")
         } catch (e) {
             setError(e.message)
@@ -28,7 +26,12 @@ const signIn = () => {
     return (
         <div className="max-w-[700px] mx-auto my-16 p-4">
             <div>
-                <button onClick={handleHome}>Home</button>
+                <button
+                    onClick={handleHome}
+                    className="text-blue-400 underline mb-3"
+                >
+                    Home
+                </button>
             </div>
             <div>
                 <h1 className="text-3xl mb-4">Sign In</h1>
@@ -50,6 +53,13 @@ const signIn = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                {!isPending && <button className="submit">Sign In</button>}
+                {isPending && (
+                    <button className="btn" disabled>
+                        loading...
+                    </button>
+                )}
+                {error && <p>{error}</p>}
                 <div className="mb-4">
                     <p>
                         Don't have an account?{" "}
@@ -58,7 +68,7 @@ const signIn = () => {
                         </a>
                     </p>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer">
                     Sign In
                 </button>
             </form>

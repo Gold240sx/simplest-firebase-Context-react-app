@@ -1,19 +1,32 @@
 import { useState } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom"
 import { AuthContextProvider } from "./context/AuthContext"
 import { Home, SignIn, Signup, Dashboard } from "./pages/index"
+import { useAuthContext } from "./hooks/useAuthContext.js"
 
-function App() {
+function App({ children }) {
+    const { user, authIsReady } = useAuthContext()
+
     return (
         <div className="h-auto w-auto relative">
-            <AuthContextProvider>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                </Routes>
-            </AuthContextProvider>
+            {authIsReady && (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/*" element={<Home />} />
+                        <Route path="/signin" element={<SignIn />} />
+                        <Route path="/signup" element={<Signup />} />
+                        {user && (
+                            <Route path="/dashboard" element={<Dashboard />} />
+                        )}
+                        {!user && (
+                            <Route
+                                path="/dashboard"
+                                element={<Navigate to="/signin" />}
+                            />
+                        )}
+                    </Routes>
+                </BrowserRouter>
+            )}
         </div>
     )
 }
