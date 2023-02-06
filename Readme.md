@@ -8,3 +8,6 @@ I've expanded on this in several ways: - Added parenthesis as a valid regex char
 UserList: - Added multiple inputs and output per project in the (userList), as opposed to the single input/output provided by the tutorial. - changed the deleteDoc click event occurance from clicking on the project li itself (doesnt make any sense) to a fontAwesome trash icon. - AutoCopy Text when clicked - Added tooltips for both AutoCopy success message and Hover Alerts
 
 Ill be branching the remainder of progress off this branch.
+
+Level 3. Multi-User-Role Authentication, Axios, JWT, + cookies
+requires the nodeJS backend server deployment spoken about here: "https://youtu.be/brcHK3P6ChQ?t=2365". The webserver source code is here: 'https://github.com/gitdagray/nodejs_web_server " Add localhost port 3000 to allowed origins.

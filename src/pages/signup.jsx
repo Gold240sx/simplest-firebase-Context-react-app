@@ -15,6 +15,7 @@ const PWD_REGEX =
     /^(?=.*[a-x])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%"("")"]).{8,24}$/
 const EML_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const REGISTER_URL = "/signin"
 
 const signup = () => {
     const userRef = useRef()
@@ -80,6 +81,32 @@ const signup = () => {
             setErrMsg("Invalid Entry")
             return
         }
+        try {
+            const response = await axios.post(
+                REGISTER_URL,
+                JSON.stringify({ user, pwd }),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            )
+            console.log(response.data)
+            console.log(response.accessToken)
+            console.log(JSON.stringify(response))
+            setSuccess(true)
+            //clear the input fields
+        } catch (err) {}
+        if (!irr?.response) {
+            setErrMsg("No Serever Response")
+        } else if (err.response?.status === 409) {
+            setErrMsg("Username Taken")
+        } else {
+            setErrMsg("Registration Failed")
+        }
+
+        errRef.current.focus()
         // console.log(eml, pwd , displayName);
         setSuccess(true)
 

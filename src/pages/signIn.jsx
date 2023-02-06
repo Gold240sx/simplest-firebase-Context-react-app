@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useLogin } from "../hooks/useSignIn.js"
 
 const signIn = () => {
@@ -7,12 +7,14 @@ const signIn = () => {
     const [password, setPassword] = useState("")
     const { error, isPending, login } = useLogin()
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             await login(email, password)
-            navigate("/dashboard")
+            navigate(from, { replace: true })
         } catch (e) {
             setError(e.message)
             console.log(e.message)
