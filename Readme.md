@@ -1,3 +1,9 @@
+To get the local .env files working for Firebase Deploy:
+run these commands in the cli:
+
+-   firebase use --add ...dev
+-   firebase use --add ...prod
+
 Level 1: A course based upon the video link: https://www.youtube.com/watch?v=x62aBvnRCKw&t=327s.
 (Please Note: this doesn't in fact actually prevent an un-logged in user from seeing the dashboad. There is a restricted page in his template that he had that i didn't complete. )
 
