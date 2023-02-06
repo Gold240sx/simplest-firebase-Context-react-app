@@ -141,14 +141,6 @@ const signup = () => {
                     <Navbar />
                     <div className="max-w-[700px] mx-auto my-16 p-4">
                         <div>
-                            <button
-                                onClick={handleHome}
-                                className="text-blue-400 underline mb-3"
-                            >
-                                Home
-                            </button>
-                        </div>
-                        <div>
                             <h1 className="text-3xl mb-4">
                                 Sign up for an account
                             </h1>
