@@ -11,3 +11,12 @@ Ill be branching the remainder of progress off this branch.
 
 Level 3. Multi-User-Role Authentication, Axios, JWT, + cookies
 requires the nodeJS backend server deployment spoken about here: "https://youtu.be/brcHK3P6ChQ?t=2365". The webserver source code is here: 'https://github.com/gitdagray/nodejs_web_server " Add localhost port 3000 to allowed origins.
+The React Login Authentication Series:
+
+1. React Register Form with Validation, Axios and a11y: https://youtu.be/brcHK3P6ChQ
+
+2. React User Login and Authentication with Axios: https://youtu.be/X3qyxo_UTR4
+
+3. React Protected Routes | Role-Based Authorization: https://youtu.be/oUZjO00NkhY
+
+4)React Login Authentication with JWT Access, refresh Tokens, Cookies and Axios: https://www.youtube.com/watch?v=nI8PYZNFtac
