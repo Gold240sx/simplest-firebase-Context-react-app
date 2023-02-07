@@ -8,7 +8,7 @@ function App({ children }) {
     const { user, authIsReady } = useAuthContext()
 
     return (
-        <div className="h-auto w-auto relative">
+        <main className="h-auto w-auto relative">
             {authIsReady && (
                 <BrowserRouter>
                     <Routes>
@@ -27,7 +27,7 @@ function App({ children }) {
                     </Routes>
                 </BrowserRouter>
             )}
-        </div>
+        </main>
     )
 }
 

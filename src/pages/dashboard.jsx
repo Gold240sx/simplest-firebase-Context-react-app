@@ -17,6 +17,12 @@ const dashboard = () => {
                     User Email:{" "}
                     <span className="text-blue-500">{user && user.email}</span>
                 </p>
+                <p className="">
+                    Username:{" "}
+                    <span className="text-blue-500">
+                        {user && user.displayName}
+                    </span>
+                </p>
                 <div>Avatar</div>
                 <p>Position:</p>
             </div>

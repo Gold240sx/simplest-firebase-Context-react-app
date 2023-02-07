@@ -27,7 +27,7 @@ export const navbar = () => {
                         <div className="mr-4">
                             <Link to="/signIn">
                                 <h1 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                                    Login
+                                    Sign In
                                 </h1>
                             </Link>
                         </div>

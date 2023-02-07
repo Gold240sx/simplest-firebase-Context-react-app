@@ -82,32 +82,34 @@ const signup = () => {
             setErrMsg("Invalid Entry")
             return
         }
-        try {
-            const response = await axios.post(
-                REGISTER_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
-                }
-            )
-            console.log(response.data)
-            console.log(response.accessToken)
-            console.log(JSON.stringify(response))
-            setSuccess(true)
-            //clear the input fields
-        } catch (err) {}
-        if (!irr?.response) {
-            setErrMsg("No Serever Response")
-        } else if (err.response?.status === 409) {
-            setErrMsg("Username Taken")
-        } else {
-            setErrMsg("Registration Failed")
-        }
+        // try {
+        //     const response = await axios.post(
+        //         REGISTER_URL,
+        //         JSON.stringify({ user, pwd }),
+        //         {
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //             },
+        //             withCredentials: true,
+        //         }
+        //     )
+        //     console.log(response.data)
+        //     console.log(response.accessToken)
+        //     console.log(JSON.stringify(response))
+        //     setSuccess(true)
+        //     //clear the input fields
+        //     const form = document.querySelector("form")
+        //     form.reset()
+        // } catch (err) {}
+        // if (!error?.response) {
+        //     setErrMsg("No Server Response")
+        // } else if (err.response?.status === 409) {
+        //     setErrMsg("Username Taken")
+        // } else {
+        //     setErrMsg("Registration Failed")
+        // }
 
-        errRef.current.focus()
+        // errRef.current.focus()
         // console.log(eml, pwd , displayName);
         setSuccess(true)
 
@@ -124,8 +126,11 @@ const signup = () => {
                 <>
                     <h1>Success! Account Created.</h1>
                     <p>
-                        <a href="/sign-in" className="text-blue-400 underline">
-                            Sign In
+                        <a
+                            href="/dashboard"
+                            className="text-blue-400 underline"
+                        >
+                            Go to 'Account'
                         </a>
                     </p>
                     <p
@@ -173,6 +178,7 @@ const signup = () => {
                                 <input
                                     id="username"
                                     type="username"
+                                    autoComplete="off"
                                     ref={userRef}
                                     className="w-full p-2 border border-gray-300 rounded-lg"
                                     onChange={(e) =>
@@ -270,6 +276,7 @@ const signup = () => {
                                     onChange={(e) => setPwd(e.target.value)}
                                     value={pwd}
                                     required
+                                    autoComplete="off"
                                     aria-invalid={validPwd ? "false" : "true"}
                                     aria-describedby="pwdnote"
                                     onFocus={() => setPwdFocus(true)}
@@ -335,6 +342,7 @@ const signup = () => {
                                 onChange={(e) => setMatchPwd(e.target.value)}
                                 value={matchPwd}
                                 required
+                                autoComplete="off"
                                 aria-invalid={validMatch ? "false" : "true"}
                                 aria-describedby="confirmnote"
                                 onFocus={() => setMatchFocus(true)}
@@ -364,6 +372,7 @@ const signup = () => {
                             </div>
                             {!isPending && (
                                 <button
+                                    type="submit"
                                     className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer"
                                     disabled={
                                         !validName || !validPwd || !validMatch
