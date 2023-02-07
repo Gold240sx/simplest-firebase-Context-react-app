@@ -1,12 +1,29 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthContext } from "../Hooks/useAuthContext"
 import { useSignOut } from "../hooks/useSignOut"
 import { navbar as Navbar } from "../components/navbar"
+import { useRoleContext } from "../hooks/useRoleContext"
+import { USER_ROLES } from "../constants/roles"
+
+const AdminOnlyPage = () => {
+    const { userRole } = useContext(useRoleContext)
+
+    if (userRole !== USER_ROLES.ADMIN) {
+        return <Redirect to="/" />
+    }
+
+    return (
+        <div>
+            <h1>Admin Only Page</h1>
+        </div>
+    )
+}
 
 const dashboard = () => {
     const navigate = useNavigate()
     const { user } = useAuthContext()
+    const { userRole } = useRoleContext()
 
     return (
         <>
@@ -24,7 +41,13 @@ const dashboard = () => {
                     </span>
                 </p>
                 <div>Avatar</div>
-                <p>Position:</p>
+                <p>
+                    Role:{" "}
+                    <span className="text-blue-500">
+                        {" "}
+                        {user && ` ${userRole.toLowerCase()}`}
+                    </span>
+                </p>
             </div>
         </>
     )

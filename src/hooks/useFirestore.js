@@ -1,5 +1,21 @@
 import { useReducer, useEffect, useState } from "react"
-import { projectFirestore, timestamp } from "../firebase/config"
+import { db, timestamp } from "../db/firebase"
+import {
+    collection,
+    onSnapshot,
+    addDoc,
+    deleteDoc,
+    updateDoc,
+    doc,
+    getDoc,
+    setDoc,
+    arrayUnion,
+    arrayRemove,
+    query,
+    where,
+    orderBy,
+    increment,
+} from "firebase/firestore"
 
 let initialState = {
     document: null,
@@ -18,6 +34,13 @@ const firestoreReducer = (state, action) => {
                 error: null,
             }
         case "ADDED_DOCUMENT":
+            return {
+                isPending: false,
+                document: action.payload,
+                success: true,
+                error: null,
+            }
+        case "SET_DOCUMENT":
             return {
                 isPending: false,
                 document: action.payload,
@@ -50,12 +73,12 @@ const firestoreReducer = (state, action) => {
     }
 }
 
-export const useFirestore = (collection) => {
+export const useFirestore = (coll) => {
     const [response, dispatch] = useReducer(firestoreReducer, initialState)
     const [isCancelled, setIsCancelled] = useState(false)
 
     // collection ref
-    const ref = projectFirestore.collection(collection)
+    const ref = collection(db, coll)
 
     // only dispatch is not cancelled
     const dispatchIfNotCancelled = (action) => {
@@ -70,7 +93,9 @@ export const useFirestore = (collection) => {
 
         try {
             const createdAt = timestamp.fromDate(new Date())
-            const addedDocument = await ref.add({ ...doc, createdAt })
+            // const createdAt = timestamp()
+            // const addedDocument = await ref.add({ ...doc, createdAt })
+            const addedDocument = await addDoc(ref, { ...doc, createdAt })
             dispatchIfNotCancelled({
                 type: "ADDED_DOCUMENT",
                 payload: addedDocument,
@@ -85,7 +110,8 @@ export const useFirestore = (collection) => {
         dispatch({ type: "IS_PENDING" })
 
         try {
-            await ref.doc(id).delete()
+            // await ref.doc(id).delete()
+            await deleteDoc(doc(ref, id))
             dispatchIfNotCancelled({ type: "DELETED_DOCUMENT" })
         } catch (error) {
             dispatchIfNotCancelled({
@@ -100,7 +126,8 @@ export const useFirestore = (collection) => {
         dispatch({ type: "IS_PENDING" })
 
         try {
-            const updatedDocument = await ref.doc(id).update(updates)
+            // const updatedDocument = await ref.doc(id).update(updates)
+            const updatedDocument = await updateDoc(doc(ref, id), updates)
             dispatchIfNotCancelled({
                 type: "UPDATED_DOCUMENT",
                 payload: updatedDocument,

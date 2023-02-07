@@ -3,9 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useLogin } from "../hooks/useSignIn.js"
 import { AuthContext } from "../context/AuthContext.jsx"
 import { navbar as Navbar } from "../components/navbar"
-import axios from "../api/axios"
-
-const LOGIN_URL = "/auth"
 
 const signIn = () => {
     const [email, setEmail] = useState("")
@@ -23,23 +20,11 @@ const signIn = () => {
         try {
             //firebase
             await login(email, password)
-            // setError("")
             const form = document.querySelector("form")
             form.reset()
-            // navigate(from, { replace: true })
         } catch (err) {
-            setError(err.message)
             isPending(false)
             console.log(err.message)
-            if (!err?.response) {
-                setError("Network Error")
-            } else if (err.response?.status === 400) {
-                setError("Invalid email or password")
-            } else if (err.response?.status === 401) {
-                setError("Unauthorized")
-            } else {
-                setError(err?.response?.data?.message)
-            }
             errRef.current.focus()
         }
     }
@@ -95,12 +80,12 @@ const signIn = () => {
                     <div className="mb-4">
                         <p>
                             Don't have an account?{" "}
-                            <a
+                            <Link
                                 href="/signup"
                                 className="text-blue-400 underline"
                             >
                                 SignIn
-                            </a>
+                            </Link>
                         </p>
                     </div>
                     {!isPending && (

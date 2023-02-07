@@ -30,7 +30,7 @@ import firebaseConfig from "./firebaseConfig"
 
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
-export const db = getFirestore()
+export const db = getFirestore(app)
 export const storage = getStorage(app)
 export const timestamp = serverTimestamp()
 // const analytics = getAnalytics(app)

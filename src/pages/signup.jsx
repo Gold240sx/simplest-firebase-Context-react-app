@@ -16,7 +16,6 @@ const PWD_REGEX =
     /^(?=.*[a-x])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%"("")"]).{8,24}$/
 const EML_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const REGISTER_URL = "/signin"
 
 const signup = () => {
     const userRef = useRef()
@@ -74,7 +73,7 @@ const signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // if button is enabled with JS hack
+
         const v1 = USER_REGEX.test(username)
         const v2 = PWD_REGEX.test(pwd)
         const v3 = EML_REGEX.test(eml)
@@ -82,37 +81,8 @@ const signup = () => {
             setErrMsg("Invalid Entry")
             return
         }
-        // try {
-        //     const response = await axios.post(
-        //         REGISTER_URL,
-        //         JSON.stringify({ user, pwd }),
-        //         {
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     console.log(response.data)
-        //     console.log(response.accessToken)
-        //     console.log(JSON.stringify(response))
-        //     setSuccess(true)
-        //     //clear the input fields
-        //     const form = document.querySelector("form")
-        //     form.reset()
-        // } catch (err) {}
-        // if (!error?.response) {
-        //     setErrMsg("No Server Response")
-        // } else if (err.response?.status === 409) {
-        //     setErrMsg("Username Taken")
-        // } else {
-        //     setErrMsg("Registration Failed")
-        // }
 
-        // errRef.current.focus()
-        // console.log(eml, pwd , displayName);
         setSuccess(true)
-
         signup(eml, pwd, username)
     }
 
@@ -362,12 +332,12 @@ const signup = () => {
                             <div className="mb-4 mt-5">
                                 <p>
                                     Already have an account?{" "}
-                                    <a
+                                    <Link
                                         href="/signin"
                                         className="text-blue-400 underline"
                                     >
                                         SignIn
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
                             {!isPending && (
