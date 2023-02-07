@@ -20,9 +20,16 @@ requires the nodeJS backend server deployment spoken about here: "https://youtu.
 The React Login Authentication Series:
 
 1. React Register Form with Validation, Axios and a11y: https://youtu.be/brcHK3P6ChQ
-
 2. React User Login and Authentication with Axios: https://youtu.be/X3qyxo_UTR4
-
 3. React Protected Routes | Role-Based Authorization: https://youtu.be/oUZjO00NkhY
+4. React Login Authentication with JWT Access, refresh Tokens, Cookies and Axios: https://www.youtube.com/watch?v=nI8PYZNFtac
 
-4)React Login Authentication with JWT Access, refresh Tokens, Cookies and Axios: https://www.youtube.com/watch?v=nI8PYZNFtac
+Level 3 (Modified) Notes: I realized that the tutorial was much more geared to a node.js server. Firebase also includes it's own automatic signout which was part of the reason, we were using axios in the first place. I searched and found a funciton on SO and included a modified variation of it for use with this project. The file is called useTimedSignout in the hooks folder and is currrently untested. The other reason I planned on utilizing axios is to encrypt data to and from firebase. I plan on utilizing this tutorial here: 'https://www.youtube.com/watch?v=dDVicLcbOZ4" but did a quick google search and realized that all firebase services are end-to-end encrypted; so it'c better to just keep things simple-(ish).
+
+The Level 3 will include minor UI tweaks, updates to state and error reporting, Aria and screenreader accesssibility tweaks and userRoleAuthentication, based upon a configurable authorization tree predefining the roles. idk how i plan to encorporate that into context but i'll keep this updated when i figure that out.
+
+// [ CURRENT] //
+
+Level 4 will include an update to encorporate most firebase 9 variation functions into their own hooks.
+
+Level 5 will incorporate cloud functions for things like email notifications on user signup or drip email campaigns via the app and sendgrid.

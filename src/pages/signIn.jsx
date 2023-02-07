@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useLogin } from "../hooks/useSignIn.js"
+import { AuthContext } from "../context/AuthContext.jsx"
 import { navbar as Navbar } from "../components/navbar"
+import axios from "../api/axios"
+
+const LOGIN_URL = "/auth"
 
 const signIn = () => {
     const [email, setEmail] = useState("")
@@ -15,15 +19,28 @@ const signIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const form = document.querySelector("form")
-        form.reset()
 
         try {
+            //firebase
             await login(email, password)
-            navigate(from, { replace: true })
-        } catch (e) {
-            setError(e.message)
-            console.log(e.message)
+            // setError("")
+            const form = document.querySelector("form")
+            form.reset()
+            // navigate(from, { replace: true })
+        } catch (err) {
+            setError(err.message)
+            isPending(false)
+            console.log(err.message)
+            if (!err?.response) {
+                setError("Network Error")
+            } else if (err.response?.status === 400) {
+                setError("Invalid email or password")
+            } else if (err.response?.status === 401) {
+                setError("Unauthorized")
+            } else {
+                setError(err?.response?.data?.message)
+            }
+            errRef.current.focus()
         }
     }
 
