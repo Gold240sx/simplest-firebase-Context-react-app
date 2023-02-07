@@ -375,7 +375,10 @@ const signup = () => {
                                 </button>
                             )}
                             {isPending && (
-                                <button className="btn" disabled>
+                                <button
+                                    className="btn bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer"
+                                    disabled
+                                >
                                     loading...
                                 </button>
                             )}

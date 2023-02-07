@@ -50,12 +50,6 @@ const signIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    {!isPending && <button className="submit">Sign In</button>}
-                    {isPending && (
-                        <button className="btn" disabled>
-                            loading...
-                        </button>
-                    )}
                     {error && <p>{error}</p>}
                     <div className="mb-4">
                         <p>
@@ -64,13 +58,23 @@ const signIn = () => {
                                 href="/signup"
                                 className="text-blue-400 underline"
                             >
-                                Signup
+                                SignIn
                             </a>
                         </p>
                     </div>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer">
-                        Sign In
-                    </button>
+                    {!isPending && (
+                        <button className="submit bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer">
+                            Sign In
+                        </button>
+                    )}
+                    {isPending && (
+                        <button
+                            className="btn bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer"
+                            disabled
+                        >
+                            loading...
+                        </button>
+                    )}
                 </form>
             </div>
         </>
