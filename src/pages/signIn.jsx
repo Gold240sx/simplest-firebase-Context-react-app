@@ -10,7 +10,7 @@ const signIn = () => {
     const { error, isPending, login } = useLogin()
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from?.pathname || "/"
+    // const from = `${location.state?.from?.pathname || "/"}`
     const userRef = useRef()
     const errRef = useRef()
 
@@ -27,10 +27,6 @@ const signIn = () => {
             console.log(err.message)
             errRef.current.focus()
         }
-    }
-
-    const handleHome = () => {
-        navigate("/")
     }
 
     useEffect(() => {
@@ -81,7 +77,7 @@ const signIn = () => {
                         <p>
                             Don't have an account?{" "}
                             <Link
-                                href="/signup"
+                                to="/signup"
                                 className="text-blue-400 underline"
                             >
                                 SignIn

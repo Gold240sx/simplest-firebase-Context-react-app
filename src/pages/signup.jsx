@@ -333,7 +333,7 @@ const signup = () => {
                                 <p>
                                     Already have an account?{" "}
                                     <Link
-                                        href="/signin"
+                                        to="/signin"
                                         className="text-blue-400 underline"
                                     >
                                         SignIn
