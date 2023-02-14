@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../db/firebase"
 
 export const AuthContext = createContext()
+export const currentUser = auth.currentUser
 
 export const authReducer = (state, action) => {
     switch (action.type) {

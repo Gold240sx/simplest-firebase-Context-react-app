@@ -336,7 +336,7 @@ const signup = () => {
                                         to="/signin"
                                         className="text-blue-400 underline"
                                     >
-                                        SignIn
+                                        Sign In
                                     </Link>
                                 </p>
                             </div>

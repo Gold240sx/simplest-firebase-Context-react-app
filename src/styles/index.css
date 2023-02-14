@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-    *, ** {
+    *,
+    ** {
         box-sizing: border-box;
     }
-
+    .hide {
+        margin-left: -9999px;
+        position: absolute;
+    }
 }

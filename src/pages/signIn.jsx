@@ -80,7 +80,7 @@ const signIn = () => {
                                 to="/signup"
                                 className="text-blue-400 underline"
                             >
-                                SignIn
+                                Sign Up
                             </Link>
                         </p>
                     </div>

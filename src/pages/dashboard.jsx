@@ -5,6 +5,10 @@ import { useSignOut } from "../hooks/useSignOut"
 import { navbar as Navbar } from "../components/navbar"
 import { useRoleContext } from "../hooks/useRoleContext"
 import { USER_ROLES } from "../constants/roles"
+import { auth } from "../db/firebase"
+import { deleteUser } from "firebase/auth"
+import { currentUser } from "../context/AuthContext"
+import { handleDeleteAlert } from "../hooks/useDeleteUser"
 
 const AdminOnlyPage = () => {
     const { userRole } = useContext(useRoleContext)
@@ -21,7 +25,6 @@ const AdminOnlyPage = () => {
 }
 
 const dashboard = () => {
-    const navigate = useNavigate()
     const { user } = useAuthContext()
     const { userRole } = useRoleContext()
 
@@ -48,6 +51,12 @@ const dashboard = () => {
                         {user && ` ${userRole.toLowerCase()}`}
                     </span>
                 </p>
+                <button
+                    className="bg-red-600 text-white my-4 p-2 rounded-lg"
+                    onClick={handleDeleteAlert}
+                >
+                    <p>DELETE ACCOUNT</p>
+                </button>
             </div>
         </>
     )

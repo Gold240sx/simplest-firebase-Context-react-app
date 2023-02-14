@@ -30,8 +30,6 @@ export const useLogin = () => {
 
                     updateDoc(docRef, { online: true })
 
-                    console.log(res.user)
-
                     if (!isCancelled) {
                         setIsPending(false)
                         setError(null)
